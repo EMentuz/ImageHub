@@ -7,7 +7,10 @@
         {% if images %}
         <div class="image-container"> <!-- Добавление контейнера для изображений -->
             {% for image in images %}
-                    <img src="{{ image.file.url }}">
+            <a href="{% url 'image_detail' image.id %}">
+            <img src="{{ image.file.url }}">
+        </a>
+
 
             {% endfor %}
         </div>

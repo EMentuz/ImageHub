@@ -87,7 +87,7 @@ main {
 /* FOOTER */
 footer {
     width: 100%;
-    padding: 25px 20px;
+    padding: 2px 20px;
     background: #292347;
     color: white;
     text-align: center;
@@ -118,17 +118,71 @@ footer p {
     }
 }
 
+/* Общий контейнер */
+.image-detail {
+    display: flex;
+    align-items: flex-start;
+    gap: 25px;
+    width: 100%;
+}
+
+/* Фотография */
+.image-container-detail {
+    flex: 0 1 auto;
+    height: calc(100vh - 200px);
+}
+
+.image-container-detail img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 10px;
+}
+
+/* Информация справа */
+.image-info {
+    flex: 1;
+    min-width: 0;
+    text-align: left;
+}
+
+/* Название / описание */
+.image-info h1 {
+    font-size: 26px;
+    color: #7c3aed;
+    margin-bottom: 20px;
+    overflow-wrap: anywhere;
+}
+
+/* Список */
+.image-info ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.image-info li {
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e9d5ff;
+    font-size: 16px;
+    overflow-wrap: anywhere;
+}
+
 /* Стили для контейнера изображений */
 .image-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Автоматическое распределение изображений в зависимости от ширины экрана */
-    gap: 20px; /* Расстояние между изображениями */
+    gap: 8px; /* Расстояние между изображениями */
 }
 
 /* Стили для изображений */
 .image-container img {
     width: 100%;
-    height: 300px;
+    height: 240px;
     object-fit: cover;
     border-radius: 12px;
 }
+

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <div class="image-detail">
+
+    <!-- Фотография -->
+    <div class="image-container-detail">
+        <img src="{{ image.file.url }}" alt="{{ image.name }}">
+    </div>
+
+    <!-- Информация справа -->
+    <div class="image-info">
+
+        <h1>{{ image.name }}</h1>
+
+        <ul>
+            <li>Описание - {{ image.description|default:"Описание отсутствует" }}</li>
+            <li>Категория - {{ image.category }}</li>
+            <li>Дата публикации - {{ image.updated_at }}</li>
+            <li>Автор - {{ image.user }}</li>
+        </ul>
+
+    </div>
+
+</div>
+{% endblock %}
