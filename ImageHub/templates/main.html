@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+        {% if images %}
+        <div class="image-container"> <!-- Добавление контейнера для изображений -->
+            {% for image in images %}
+                    <img src="{{ image.file.url }}">
+
+            {% endfor %}
+        </div>
+    {% else %}
+        <h3>Пусто(</h3>
+    {% endif %}
+
+{% endblock %}

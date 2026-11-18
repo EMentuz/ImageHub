@@ -1,0 +1,45 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}ImageHub{% endblock %}</title>
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+
+    <header>
+        <div class="header-content">
+            <a href="{% url 'main' %}" class="logo">🌈 ImageHub</a>
+
+            <nav>
+                <a href="{% url 'main' %}">Главная</a>
+                <a href="#">Галерея</a>
+                <a href="#">Категории</a>
+                <a href="#">Войти</a>
+                <a href="#">Регистрация</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        {% block content %}
+        <section class="welcome">
+            <h1>Добро пожаловать в ImageHub!</h1>
+            <p>Место, где собраны красивые изображения и вдохновение.</p>
+        </section>
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>🌈 ImageHub — твой яркий уголок в интернете</p>
+        <p>© 2026 Все права защищены</p>
+    </footer>
+
+</body>
+</html>
