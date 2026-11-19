@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+    <form method="GET" action="{% url 'gallery' %}" class="search-form">
+        <input type="text" name="q" placeholder="Поиск изображений..." value="{{ search_query }}">
+        <button type="submit">Найти</button>
+    </form>
+
+        {% if images %}
+        <div class="image-container"> <!-- Добавление контейнера для изображений -->
+            {% for image in images %}
+            <a href="{% url 'image_detail' image.id %}">
+            <img src="{{ image.file.url }}">
+        </a>
+
+
+            {% endfor %}
+        </div>
+    {% else %}
+        <h3>Пусто(</h3>
+    {% endif %}
+
+{% endblock %}
