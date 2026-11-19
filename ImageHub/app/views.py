@@ -21,8 +21,14 @@ def gallery(request):
     if category_id:
         images = images.filter(category_id=category_id)
 
-    images = images.order_by('-updated_at')
+    sort_by = request.GET.get('sort', 'newest')
+    if sort_by == 'oldest':
+        images = images.order_by('created_at')
+    else:
+        images = images.order_by('-created_at')
+
 
     return render(request, 'gallery.html', {'images': images, 'search_query':search_query,
-                                            'categories':categories, 'selected_category': category_id})
+                                            'categories':categories, 'selected_category': category_id,
+                                            'sort_by': sort_by,})
 

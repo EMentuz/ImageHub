@@ -18,6 +18,16 @@
                 {% endfor %}
         </select>
 
+        <select name="sort">
+            <option value="newest" {% if sort_by == "newest" %}selected{% endif %}>
+                Сначала новые
+            </option>
+
+            <option value="oldest" {% if sort_by == "oldest" %}selected{% endif %}>
+                Сначала старые
+            </option>
+        </select>
+
         <button type="submit">Найти</button>
     </form>
 
