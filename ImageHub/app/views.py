@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import ImageModel
+from .models import ImageModel, CategoryModel
 from django.db.models import Q
 # Create your views here.
 
@@ -15,7 +15,14 @@ def gallery(request):
             Q(name__icontains=search_query.lower()) |
             Q(description__icontains=search_query.lower())
             )
+
+    categories = CategoryModel.objects.all()
+    category_id = request.GET.get('category',  '')
+    if category_id:
+        images = images.filter(category_id=category_id)
+
     images = images.order_by('-updated_at')
 
-    return render(request, 'gallery.html', {'images': images, 'search_query':search_query})
+    return render(request, 'gallery.html', {'images': images, 'search_query':search_query,
+                                            'categories':categories, 'selected_category': category_id})
 
