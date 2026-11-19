@@ -7,3 +7,7 @@ def main(request):
     images = ImageModel.objects.filter(is_active=True).order_by('?')[:8]
     return render(request, 'main.html', {'images': images})
 
+def gallery(request):
+    images = ImageModel.objects.filter(is_active=True).order_by('-updated_at')
+    return render(request, 'main.html', {'images': images})
+
