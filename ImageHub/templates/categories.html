@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+    {% if category_data %}
+    <div class="categories-container">
+
+        {% for cat in category_data %}
+            <a href="{% url 'category_detail' category=cat.category %}"
+               class="category-card">
+
+                {% if cat.image %}
+                    <img src="{{ cat.image.file.url }}"
+                         alt="{{ cat.category }}">
+                {% else %}
+                    <div class="no-image">
+                        <span>Нет изображений</span>
+                    </div>
+                {% endif %}
+
+                <h3>{{ cat.category }}</h3>
+
+            </a>
+        {% endfor %}
+
+    </div>
+{% else %}
+    <h3>Пока категорий нет</h3>
+{% endif %}
+
+{% endblock %}
