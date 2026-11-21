@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+    <div class="category-title">
+        <span class="category-label">ГАЛЕРЕЯ IMAGEHUB</span>
+        <h1>{{ category }}</h1>
+    </div>
+
+    <form method="GET" action="{% url 'category_detail' category %}" class="search-form2">
+        <input type="text" name="q" placeholder="Поиск изображений..." value="{{ search_query }}">
+
+
+        <select name="sort">
+            <option value="newest" {% if sort_by == "newest" %}selected{% endif %}>
+                Сначала новые
+            </option>
+
+            <option value="oldest" {% if sort_by == "oldest" %}selected{% endif %}>
+                Сначала старые
+            </option>
+        </select>
+
+        <button type="submit">Найти</button>
+    </form>
+
+        {% if images %}
+        <div class="image-container"> <!-- Добавление контейнера для изображений -->
+            {% for image in images %}
+            <a href="{% url 'image_detail' image.id %}">
+            <img src="{{ image.file.url }}">
+        </a>
+
+
+            {% endfor %}
+        </div>
+    {% else %}
+        <h3>Пусто(</h3>
+    {% endif %}
+
+{% endblock %}
