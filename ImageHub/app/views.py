@@ -1,3 +1,4 @@
+from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import render
 from .models import ImageModel, CategoryModel
 from django.db.models import Q
@@ -32,3 +33,5 @@ def gallery(request):
                                             'categories':categories, 'selected_category': category_id,
                                             'sort_by': sort_by,})
 
+def page_not_found(request, exception):
+    return HttpResponseNotFound('Страница не найдена')
