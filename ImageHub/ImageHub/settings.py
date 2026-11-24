@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'app',
     'app_image',
     'app_category',
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -137,3 +138,6 @@ MAILERS = {
 }
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
+LOGIN_REDIRECT_URL = 'main'
+LOGOUT_REDIRECT_URL = 'main'

@@ -25,6 +25,8 @@ urlpatterns = [
     path('', include('app.urls')),
     path('', include('app_image.urls')),
     path('', include('app_category.urls')),
+    path('users/', include('users.urls')),
+
 ]
 
 handler404 = page_not_found
