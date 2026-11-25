@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 
 
 class UserRegistrationForm(UserCreationForm):
@@ -22,6 +22,18 @@ class UserRegistrationForm(UserCreationForm):
         # Необязательные поля
         self.fields['first_name'].required = True
         self.fields['last_name'].required = False
+
+        for field in self.fields.values():
+            field.help_text = ''
+
+class UserPasswordChangeForm(PasswordChangeForm):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields['old_password'].label = 'Старый пароль'
+        self.fields['new_password1'].label = 'Новый пароль'
+        self.fields['new_password2'].label = 'Повторите новый пароль'
 
         for field in self.fields.values():
             field.help_text = ''
