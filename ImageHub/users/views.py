@@ -1,10 +1,10 @@
-from django.contrib.auth import authenticate, login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import PasswordChangeView, PasswordChangeDoneView
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import View
 from .forms import UserRegistrationForm, UserPasswordChangeForm
+from django.contrib.auth.decorators import login_required
 
 
 class Register(View):
@@ -65,3 +65,7 @@ class UserPasswordChangeDoneView(PasswordChangeDoneView):
     # записывает password_changed = True в сессию. Django перенаправляет пользователя на страницу успешной смены пароля.
     # dispatch() проверяет наличие маркера. pop() получает маркер и одновременно удаляет его из сессии.
     # Если пользователь попробует открыть страницу повторно, маркера уже не будет — его перенаправит на главную.
+
+@login_required(login_url='/users/login/')
+def profile(request):
+    return render (request, 'profile.html')

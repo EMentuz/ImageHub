@@ -1,0 +1,91 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Личный кабинет | ImageHub{% endblock %}
+
+{% block content %}
+
+<div class="profile-container">
+
+    <div class="profile-header">
+        <div class="profile-avatar">
+            {{ user.username|first|upper }}
+        </div>
+
+        <h1>Личный кабинет</h1>
+        <p>Управляйте своим профилем ImageHub</p>
+    </div>
+
+    <div class="profile-info">
+        <h2>Личная информация</h2>
+
+        <div class="profile-field">
+            <span>Имя пользователя</span>
+            <strong>{{ user.username }}</strong>
+        </div>
+
+        <div class="profile-field">
+            <span>Имя</span>
+            <strong>{{ user.first_name|default:"Не указано" }}</strong>
+        </div>
+
+        <div class="profile-field">
+            <span>Фамилия</span>
+            <strong>{{ user.last_name|default:"Не указана" }}</strong>
+        </div>
+
+        <div class="profile-field">
+            <span>Email</span>
+            <strong>{{ user.email|default:"Не указан" }}</strong>
+        </div>
+
+        <div class="profile-field">
+            <span>Дата регистрации</span>
+            <strong>{{ user.date_joined|date:"d.m.Y" }}</strong>
+        </div>
+    </div>
+
+    <div class="profile-actions">
+        <h2>Настройки аккаунта</h2>
+
+        <a href="#" class="profile-action">
+            <span>✏️</span>
+            <div>
+                <strong>Редактировать профиль</strong>
+                <small>Изменить личную информацию</small>
+            </div>
+            <span class="action-arrow">›</span>
+        </a>
+
+        <a href="{% url 'password_change' %}" class="profile-action">
+            <span>🔒</span>
+            <div>
+                <strong>Изменить пароль</strong>
+                <small>Обновить пароль аккаунта</small>
+            </div>
+            <span class="action-arrow">›</span>
+        </a>
+
+        <a href="#" class="profile-action">
+            <span>🗑️</span>
+            <div>
+                <strong>Удалить профиль</strong>
+                <small>Удалить свой аккаунт</small>
+            </div>
+            <span class="action-arrow">›</span>
+        </a>
+
+        <a href="#" class="profile-action">
+            <span>📧</span>
+            <div>
+                <strong>Сбросить пароль</strong>
+                <small>Восстановить забытый пароль</small>
+            </div>
+            <span class="action-arrow">›</span>
+        </a>
+    </div>
+
+</div>
+
+{% endblock %}
+```

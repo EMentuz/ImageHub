@@ -26,7 +26,8 @@
                     <a href="{% url 'register' %}">Регистрация</a>
 
                 {% else %}
-                {{user}}
+                <a href="{% url 'profile' %}">{{user}}</a>
+
                 <form action="{% url 'logout' %}" method="post">
                     {% csrf_token %}
                     <button type="submit" class="nav-link">Выйти</button>
