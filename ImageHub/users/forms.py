@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
+from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm, SetPasswordForm
 
 
 class UserRegistrationForm(UserCreationForm):
@@ -35,5 +35,12 @@ class UserPasswordChangeForm(PasswordChangeForm):
         self.fields['new_password1'].label = 'Новый пароль'
         self.fields['new_password2'].label = 'Повторите новый пароль'
 
+        for field in self.fields.values():
+            field.help_text = ''
+
+class UserSetPasswordForm(SetPasswordForm):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
         for field in self.fields.values():
             field.help_text = ''

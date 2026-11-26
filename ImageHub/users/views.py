@@ -1,9 +1,10 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.views import PasswordChangeView, PasswordChangeDoneView
+from django.contrib.auth.views import PasswordChangeView, PasswordChangeDoneView, PasswordResetView, \
+    PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import View
-from .forms import UserRegistrationForm, UserPasswordChangeForm
+from .forms import UserRegistrationForm, UserPasswordChangeForm, UserSetPasswordForm
 from django.contrib.auth.decorators import login_required
 
 
@@ -58,7 +59,6 @@ class UserPasswordChangeDoneView(PasswordChangeDoneView):
     def dispatch(self, request, *args, **kwargs):
         if not request.session.pop('password_changed', False):
             return redirect('main')
-
         return super().dispatch(request, *args, **kwargs)
 
     # Для того чтобы страница password_change_done.html открывалась только после изменения пароля, добавляем form_valid()
@@ -69,3 +69,47 @@ class UserPasswordChangeDoneView(PasswordChangeDoneView):
 @login_required(login_url='/users/login/')
 def profile(request):
     return render (request, 'profile.html')
+
+class UserPasswordResetView(PasswordResetView):
+    template_name = 'password_reset/password_reset_form.html'
+    email_template_name = 'password_reset/password_reset_email.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return redirect('main')
+        return super().dispatch(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        self.request.session['password_reset_requested'] = True
+        return response
+
+class UserPasswordResetDoneView(PasswordResetDoneView):
+    template_name = 'password_reset/password_reset_done.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.session.pop('password_reset_requested', False):
+            return redirect('main')
+        return super().dispatch(request, *args, **kwargs)
+
+class UserPasswordResetConfirmView(PasswordResetConfirmView):
+    template_name = "password_reset/password_reset_confirm.html"
+    form_class = UserSetPasswordForm
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return redirect('main')
+        return super().dispatch(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        self.request.session['password_reset_completed'] = True
+        return response
+
+class UserPasswordResetCompleteView(PasswordResetCompleteView):
+    template_name = "password_reset/password_reset_complete.html"
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.session.pop('password_reset_completed', False):
+            return redirect('main')
+        return super().dispatch(request, *args, **kwargs)
