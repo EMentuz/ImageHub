@@ -133,13 +133,21 @@ STATICFILES_DIRS = [
 
 MAILERS = {
     'default': {
-        'BACKEND': 'django.core.mail.backends.console.EmailBackend',
+        'BACKEND': 'django.core.mail.backends.smtp.EmailBackend',
+        'OPTIONS': {
+            'host': "smtp.yandex.ru",
+            'port': 465,
+            'username': config('YANDEX_EMAIL'),
+            'password': config('YANDEX_EMAIL_PASSWORD'),
+            'use_ssl': True,
+        },
     },
 }
+
+DEFAULT_FROM_EMAIL = config('YANDEX_EMAIL')
+#         'BACKEND': 'django.core.mail.backends.console.EmailBackend',
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 LOGIN_REDIRECT_URL = 'main'
 LOGOUT_REDIRECT_URL = 'main'
-
-# для отправки писем для восстановления пароля в консоль
